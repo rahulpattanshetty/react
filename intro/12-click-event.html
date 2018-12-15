@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rendering time</title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+   
+    let count = 0
+    let stepBy2 = 0
+
+    function handleClick() {
+      
+        count++
+      
+      ele = displayElement()
+      ReactDOM.render(ele,rootHandle)  
+      
+    }
+    function negClick() {
+        count--
+      
+      ele = displayElement()
+      ReactDOM.render(ele,rootHandle)
+      
+    }
+
+    function displayElement() {
+      stepBy2 = count * 2
+      return (
+        <div>
+          <h2> the count is {count} / {stepBy2}</h2>
+          <button onClick={handleClick}>+</button> 
+          <button onClick={negClick}>-</button> 
+        </div>
+      )
+    }
+
+    let ele = displayElement()
+
+    ReactDOM.render(ele, rootHandle)
+  </script>
+</body>
+
+</html>

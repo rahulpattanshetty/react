@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+
+  <script type="text/babel">
+  const rootHandle = document.getElementById('root')
+  
+  
+  function App(props) {
+    const article = {
+      id:1,
+      title:"ruby on rails",
+      author: "DHH"
+
+    }
+    return (
+      <div>
+        <Article  articles={props.articles}/>
+        <Comment comments = {props.comments}/>
+      </div>
+    )
+  }
+
+  
+
+  function Article(props) {
+    const {articles} = props
+    return (
+      <div>
+        <h2>Article</h2>
+        <ul>
+          {articles.map(function(article) {
+            return (
+              <li key={article.id}>
+                ID:{article.id}
+                title:{article.title}
+                author:{article.author}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    )
+  }
+
+  function SingleComment(props) {
+    return (
+      <li key={props.id}>
+        {props.body}
+      </li>
+    )
+  }
+
+  function Comment(props) {
+    const {comments} = props
+    return (
+      <div>
+        <h2>Comments</h2>
+        <ul>
+        {comments.map((comment) => {
+        return <SingleComment id={comment.id} body={comment.body}/>
+        }
+        )}
+        </ul>
+      </div>
+    )
+  }
+
+
+  // ReactDOM.render(<App articles = {
+  //   {id:1,title:"rubyonrails",author:"DHH",createdAt:"28-mar-2005"}
+  //   } 
+  //   comments={[{id:1,body:"good one"}]} />,rootHandle)
+  </script>
+</body>
+
+</html>

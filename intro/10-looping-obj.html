@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Looping object</title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+    
+    const users = [
+      { id: 1, name: 'arjun', email: 'arjun@gmail.com'},
+      { id: 2, name: 'rahul', email: 'rahul@gmail.com'},
+      { id: 3, name: 'sumit', email: 'sumit@gmail.com'}
+    ]
+    const ele = (
+      <div>
+        <table>
+          <thead>
+            <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th></tr>
+          </thead>
+          <tbody>
+            {users.map(function(user) {
+              return (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                </tr>
+              )
+            })}  
+          </tbody>
+          </table>
+      </div>
+    )
+
+    ReactDOM.render(ele, rootHandle)
+  </script>
+</body>
+
+</html>

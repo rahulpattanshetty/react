@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+</head>
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    var rootHandle = document.getElementById('root')
+
+    // function Welcome(props) {
+    //   return (
+    //     <div>
+    //       <h2> Welcome to the site</h2>
+    //       <p> we are an interior design studio</p>
+    //     </div>
+    //   )
+    // }
+
+    function Header(props) {
+      return (
+        <div>
+          <h2> {props.title} </h2>
+          <p> {props.body} </p>
+        </div>
+      )
+    }
+
+    // function Services(props) {
+    //   return (
+    //     <div>
+    //       <h2> Services we are offer</h2>
+    //       <ul>
+    //         <li> Design </li>
+    //         <li> Consulting</li>
+    //         <li> Home Decor</li>
+    //       </ul>
+    //     </div>
+    //   )
+    // }
+
+    function Services(props) {
+      return (
+        <div>
+          <h2> {props.title}</h2>
+          <ul>
+            { props.services.map((service,index) =><li key={index}> {service}</li>)}
+          </ul>
+        </div>
+      )
+    }
+
+    function Protofilo(props) {
+      return (
+        <div>
+          <h2> Protofilo </h2>
+          <ul>
+            <li>Designing</li>
+          </ul>
+        </div>
+      )
+    }
+
+    var ele = (
+      <div>
+        <Header title="Welcome to the site" body="we are interior design" />
+        {/*Header({title:"About us",body:"about us section"})*/}
+        <hr/>
+        <Services title="Services We offer" services={["Design","Consulting","Home Decor"]} />
+        <hr/>
+        <Protofilo />
+      </div>
+    )
+
+    ReactDOM.render(ele,rootHandle)
+  </script>
+</body>
+</html>

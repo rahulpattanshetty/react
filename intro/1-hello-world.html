@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script>
+    const rootHandle = document.getElementById('root')
+    
+    const ele = React.createElement('h2',{id: 'heading'},'Hello World')
+    // ReactDOM.render(ele, rootHandle)
+    const aTag = React.createElement('a',{href: 'http://www.google.com',target:'_blank',id:'link'},'Visit Google')
+    ReactDOM.render(aTag, rootHandle)
+</script>
+</body>
+
+</html>

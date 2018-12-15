@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+
+    function Good(props) {
+      return (
+        <div>
+          <h2>:)</h2>
+          <p>You rated: {props.rating}</p>
+        </div>
+      )
+    }
+
+    function Bad(props) {
+      return (
+        <div>
+          <h2>:(</h2>
+          <p>You rated: {props.rating}</p>
+        </div>
+      )
+    }
+    function App() {
+      const userRating = 4
+      return (
+        <div>
+          {/*used for both if else (true/false)*/}
+          {/*userRating >= 3.5 ? <Good rating={userRating}/>: <Bad rating={userRating}/>*/}
+
+          {/*used for either of or else (true/false)*/}
+          {userRating >= 3.5 && <Good rating={userRating}/>}
+        </div>
+      )
+    }
+    ReactDOM.render(<App/>,rootHandle)
+  </script>
+</body>
+
+</html>

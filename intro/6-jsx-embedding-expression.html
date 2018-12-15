@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+    
+    const name = 'Rohit'
+    const age = 25
+    const skills = ['js','rb','py']
+    const address = {
+      city: 'bangalore',
+      state: 'karnataka'
+    }
+    const isWorking = false
+
+    const ele = <h2>Hi, my name is {name}, I'm {age} years old. I know {skills.join(', ')}.I'm from {address.city}. Working - {isWorking ? 'true' : 'false'}</h2>
+
+    ReactDOM.render(ele, rootHandle)
+  </script>
+</body>
+
+</html>

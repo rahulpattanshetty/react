@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rendering time</title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+   
+    class Counter extends React.Component {
+      constructor() {
+        super()
+        this.state = {
+          value: 0
+        }
+        this.countUp = this.countUp.bind(this)
+      }
+      countUp() {
+
+      }
+      countDown() {
+
+      }
+    }
+
+    ReactDOM.render(ele, rootHandle)
+  </script>
+</body>
+
+</html>

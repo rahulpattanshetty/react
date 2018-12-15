@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+
+    class Generate extends React.Component {
+
+      constructor(){
+        super()
+        this.state = {
+          num:''
+        }
+        this.generateRandom = this.generateRandom.bind(this)
+      }
+
+      generateRandom(){
+        
+        this.setState({num:Math.round(Math.random()*100)})
+      }
+      render(){
+         return (
+          <div>
+            <h2>{this.state.num}</h2>
+            <button onClick={this.generateRandom}>GENERATE</button>
+          </div>
+         )
+      }
+
+    }
+
+    function App() {
+      return (
+        <div>
+          <Generate/>
+        </div>
+      )
+    }
+    ReactDOM.render(<App/>,rootHandle)
+
+  </script>
+</body>
+
+</html>

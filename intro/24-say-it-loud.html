@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+
+    class Loud extends React.Component {
+      
+      constructor(){
+        super()
+        this.state = {
+          slogan: 'State in react is awesome'
+        }
+        this.clickHandle = this.clickHandle.bind(this)
+      }
+
+
+      clickHandle(){
+        this.setState(function(prevState) {
+          return {
+            slogan: prevState.slogan.toUpperCase()
+          }
+        })
+      }
+
+      render(){
+        return (
+          <div>
+            <h2>{this.state.slogan}</h2>
+            <button onClick = {this.clickHandle}>say it loud</button>
+          </div>
+        )
+      }
+    }
+    function App() {
+      return (
+        <div>
+          <Loud />
+        </div>
+      )
+    }
+    ReactDOM.render(<App />,rootHandle)
+  </script>
+</body>
+
+</html>

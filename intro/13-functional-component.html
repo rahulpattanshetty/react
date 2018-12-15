@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rendering time</title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+   
+    // function Component in React
+    // 1. function name in capital
+    // 2. function should get arguments
+    // 3. function must return jsx
+    // components are like your user defined tags
+    function Greet(props) {
+      return <h2>Hello, {props.name}.My age is {props.age}</h2>
+    }
+
+    const ele = (
+      <div>
+        <Greet name="Govind" age={21}/>
+        <Greet name="rahul" age={25}/>
+        {Greet({name:"sumit",age:23})}  
+      </div>
+    )
+
+    ReactDOM.render(ele, rootHandle)
+  </script>
+</body>
+
+</html>

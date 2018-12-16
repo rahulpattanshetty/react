@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+  
+    class Registration extends React.Component {
+      constructor(props){
+        super(props)
+        this.state ={
+          username:'',
+          email:'',
+          password:'',
+
+          //error states
+          usernameErrorMsg:'',
+          emailErrorMsg:'',
+          passwordErrorMsg:'',
+
+          isUsernameValid: false,
+          isEmailValid: false,
+          isPasswordValid: false 
+        }
+        this.handleUsername = this.handleUsername.bind(this)
+        this.handleEmail = this.handleEmail.bind(this)
+        this.handlePassword = this.handlePassword.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+      }
+      
+      handleUsername(event){
+        this.setState({
+          username: event.target.value
+        })
+      }
+
+      handleEmail(event){
+        this.setState({
+          email: event.target.value
+        })
+      }
+
+      handlePassword(event){
+        this.setState({
+          password: event.target.value
+        })
+      }
+
+      validateUsername(){
+        // this object will be avaliable directly, we need to bind this context only to event handler for helper method we can use it directly
+        if (this.state.username.length == 0) {
+          this.setState({
+            usernameErrorMsg:"should not be blank",
+            isUsernameValid: false
+          })
+        } else {
+          this.setState({
+            usernameErrorMsg:"",
+            isUsernameValid: true
+          })
+        }
+      }
+
+      validateEmail(){
+        
+        if (this.state.email.length == 0) {
+          this.setState({
+            emailErrorMsg:"should not be blank",
+            isEmailValid: false
+          })
+        } else {
+          this.setState({
+            emailErrorMsg:"",
+            isEmailValid: true
+          })
+        }
+      }
+
+      validatePassword(){
+        if (this.state.password.length == 0) {
+          this.setState({
+            passwordErrorMsg:"should not be blank",
+            isPasswordValid: false
+          })
+        }else if(this.state.password.length < 8 || this.state.password.length > 128 ) {
+          this.setState({
+            passwordErrorMsg:"should be more than 8 less than 128 character",
+            isPasswordValid: false
+          })
+         }else {
+          this.setState({
+            passwordErrorMsg:"",
+            isPasswordValid: true
+          })
+        }
+      }
+
+      handleSubmit(event){
+        event.preventDefault()
+        this.validateUsername()
+        this.validateEmail()
+        this.validatePassword()
+        console.log(this.state);
+
+        console.log('if validation pass, make api call');
+        console.log('once success response ,reset your state')
+        if (this.state.isUsernameValid && this.state.isEmailValid && this.state.isPasswordValid ) {
+          this.setState({
+          username:'',
+          email:'',
+          password:''
+        })  
+        }
+        
+      }
+
+      render(){
+        return(
+          <div>
+            <h2>Registration Form</h2>
+
+            <form onSubmit={this.handleSubmit}>
+              <label> Username
+                <input type="text" name="username" value={this.state.username} onChange={this.handleUsername} />
+                <span>{this.state.usernameErrorMsg}</span>
+              </label><br/>
+              <label> Email
+                <input type="text" name="email" value={this.state.email} onChange={this.handleEmail} />
+                <span>{this.state.emailErrorMsg}</span>
+              </label><br/>
+              <label> Password
+                <input type="password" name="password" value={this.state.password} onChange={this.handlePassword} />
+                <span>{this.state.passwordErrorMsg}</span>
+              </label><br/>
+              <input type="submit" value="Register"/>
+            </form>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<Registration/>,rootHandle)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="js/babel.js"></script>
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+    
+    class Parent extends React.Component{
+      constructor(props){
+        super(props)
+        this.state = {
+          tasks: [
+            { id: 1, status:false, detail:"Go to gym"},
+            { id: 2, status:false, detail:"Drink tea"}
+          ]
+        }
+        this.count = this.count.bind(this)
+        this.changeTaskStatus = this.changeTaskStatus.bind(this)
+        this.removeTask = this.removeTask.bind(this)
+      }
+      count(input){
+         return this.state.tasks.filter(task => task.status == input).length
+      }
+
+      changeTaskStatus(id){
+       let task = this.state.tasks.find(task => task.id == id )
+       task.status = !task.status 
+       this.setState(prevState => ({
+         tasks: [...prevState.tasks]
+       }))
+      }
+
+      removeTask(id){
+        this.setState(prevState => {
+          return{
+            tasks: prevState.tasks.filter(task => task.id != id)
+          }
+        })
+      }
+
+      render(){
+        return(
+          <div>
+            <h2>Listing Task - {this.state.tasks.length}</h2>
+            <h3>Completed - {this.count(true)} Incompleted - {this.count(false)}</h3>
+            {this.state.tasks.map((task) => {
+              return <Child key={task.id} id={task.id} detail={task.detail} changeTaskStatus={this.changeTaskStatus} removeTask={this.removeTask}/>
+            })}
+          </div>
+        )
+      }
+    }
+    
+    function Child(props) {
+      return(
+        <div>
+          {props.detail}
+          <input type="checkbox" onClick={()=>{props.changeTaskStatus(props.id)}}/>
+          <button onClick={()=>{props.removeTask(props.id)}}>remove</button>
+        </div>
+      )
+    }
+    ReactDOM.render(<Parent/>,rootHandle)
+  </script>
+</body>
+
+</html>

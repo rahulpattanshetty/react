@@ -113,16 +113,17 @@
         this.validatePassword()
         console.log(this.state);
 
-        console.log('if validation pass, make api call');
-        console.log('once success response ,reset your state')
-        if (this.state.isUsernameValid && this.state.isEmailValid && this.state.isPasswordValid ) {
-          this.setState({
-          username:'',
-          email:'',
-          password:''
-        })  
-        }
-        
+        setTimeout(() => {
+          if (this.state.isUsernameValid && this.state.isEmailValid && this.state.isPasswordValid ) {
+            console.log('make api call');
+            console.log('once success response ,reset your state')
+            this.setState({
+              username:'',
+              email:'',
+              password:''
+            })  
+          }
+        }, 0);
       }
 
       render(){

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task-Redux app </title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="https://unpkg.com/redux@4.0.1/dist/redux.js"></script>
+  <script src="js/babel.js"></script>
+
+  <script type="text/babel">
+    const rootHandle = document.getElementById('root')
+
+    const initialTaskState = [{ id: 1, detail:"Remove the bug in login"}]
+
+    const taskReducer = ( state = initialTaskState,action) => {
+      switch (action.type) {
+        case "ADD_TASK":
+          return [...store, action.task]
+        default:
+          return store;
+      }
+    }
+  
+    const store = Redux.createStore(taskReducer)
+
+    const ADD_TASK = "ADD_TASK"
+
+    const addTask = (obj) =>{
+      return {
+        type: ADD_TASK,
+        id: obj.id,
+        detail: obj.detail
+      }
+    }
+
+    class Task extends React.Component{
+      constructor(props){
+        super(props)
+        this.state = {
+          id:"",
+          detail:""
+        }
+      }
+
+      handleSubmit(event){
+        
+      }
+
+      render(){
+        return(
+          <div>
+            <h2> Add Task </h2> 
+            <form onSubmit={this.handleSubmit}>
+                <label> id  
+                      <input type="text" value={this.state.id} onChange={this.handleChange} name="id" />
+                </label> <br/>
+
+                <label> Detail  
+                      <input type="text" value={this.state.name} onChange={this.handleChange} name="detail" />
+                </label> <br/>
+
+                <input type="submit" value="submit" />
+            </form>
+        </div>
+        )
+      }
+
+    }
+  </script>
+</body>
+</html>

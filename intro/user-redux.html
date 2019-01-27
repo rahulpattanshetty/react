@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> </title>
+</head>
+
+<body>
+  <div id="root">
+
+  </div>
+  <script src="js/react.development.js"></script>
+  <script src="js/react-dom.development.js"></script>
+  <script src="https://unpkg.com/redux@4.0.1/dist/redux.js"></script>
+  <script src="js/babel.js"></script>
+
+  <script type="text/babel">
+        const rootHandle = document.getElementById('root')
+
+        const userInitialStateData = [{ id: 1, name: 'Hari'}]
+        const userReducer = (state = userInitialStateData, action) => {
+            switch(action.type) {
+                case 'ADD_USER' : 
+                    // return state.concat(action.user)
+                    return [...state, action.user]
+                case 'REMOVE_USER' : 
+                    return state.filter(user => user.id != action.id)
+                case 'EDIT_USER' : 
+                    return state.map(user => {
+                        if(user.id == action.id) {
+                            return Object.assign({}, user, action.user)
+                        } else {
+                            return user
+                        }
+                    })
+                case 'LIST_USER' : 
+                    return state 
+                default : 
+                    return state
+            }
+        }
+
+        const store = Redux.createStore(userReducer)
+
+        store.subscribe(() => {
+            ReactDOM.render(<User />, rootHandle)
+        }) 
+
+        const ADD_USER = 'ADD_USER'
+        const EDIT_USER = 'EDIT_USER'
+        const REMOVE_USER = 'REMOVE_USER'
+        const LIST_USER = 'LIST_USER'
+
+        // action generator 
+        const addUser = (obj) => {
+            return {
+                type: ADD_USER, 
+                user: {
+                    id: obj.id, 
+                    name: obj.name
+                }
+            }
+        }
+
+        const removeUser = (id) => {
+            return {
+                type: REMOVE_USER, 
+                id
+            }
+        }
+
+        const editUser = (id, user) => {
+            return {
+                type: EDIT_USER, 
+                id, 
+                user
+            }
+        }
+
+        const listUser = () => {
+            return {
+                type: LIST_USER
+            }
+        }
+
+        class User extends React.Component {
+            constructor(props) {
+                super(props) 
+            }   
+
+            handleSubmit() {
+
+            }
+            render() {
+                console.log(store.getState())
+                return (
+                    <div>
+                        <h2> Listing Users </h2> 
+                        <ul>
+                        { store.getState().map(user => {
+                            return <ListUser key={user.id} id={user.id} name={user.name}/>
+                        })}
+                        </ul>
+                        <AddUser />
+                    </div>
+                )
+               
+            }
+        }
+
+        class ListUser extends React.Component {
+            render() {
+                return (
+                    <li> 
+                        { this.props.name } 
+                        <button onClick={() => {
+                            store.dispatch(removeUser(this.props.id))
+                        }}> remove </button>
+                    </li>
+                )
+            }
+        }
+
+        class AddUser extends React.Component {
+            constructor(props) {
+                super(props) 
+                this.state = {
+                    id: '',
+                    name: ''
+                }
+                this.handleSubmit = this.handleSubmit.bind(this)
+                this.handleChange = this.handleChange.bind(this)
+                
+            }
+
+            handleChange(event) {
+                this.setState({
+                    [event.target.name] : event.target.value
+                })
+            }
+
+            handleSubmit(event) {
+                event.preventDefault()
+                const formData = {
+                    id: this.state.id,
+                    name: this.state.name 
+                }
+                store.dispatch(addUser(formData))  
+                this.setState({
+                    id: '',
+                    name: ''
+                })
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2> Add User </h2> 
+                        <form onSubmit={this.handleSubmit}>
+                            <label> id  
+                                 <input type="text" value={this.state.id} onChange={this.handleChange} name="id" />
+                            </label> <br/>
+
+                            <label> name  
+                                 <input type="text" value={this.state.name} onChange={this.handleChange} name="name" />
+                            </label> <br/>
+
+                            <input type="submit" value="submit" />
+                        </form>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<User />, rootHandle)
+    </script>
+</body>
+
+</html>
